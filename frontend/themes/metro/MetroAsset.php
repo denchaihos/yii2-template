@@ -1,10 +1,11 @@
 <?php
 namespace frontend\themes\metro;
-
 use yii\web\AssetBundle;
+use yii\helpers\Html;
 
 class MetroAsset extends AssetBundle{
     public $sourcePath = '@frontend/themes/metro/assets';
+
     
     public $css = [
         'css/metro.css',
@@ -13,7 +14,7 @@ class MetroAsset extends AssetBundle{
     public $js = [
         'js/jquery.plugins.min.js',
         'js/metro.js'
-    ];
+    ]; 
     public $depends = [
         'yii\web\YiiAsset',
         //'yii\bootstrap\BootstrapAsset',

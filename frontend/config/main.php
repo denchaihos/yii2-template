@@ -37,14 +37,16 @@ return [
 
         'view' => [
             'theme' => [
+                //'class' => 'yii\base\Theme',
                 'pathMap' => [
                     //meterial  themes
                      // '@app/views'=>'@frontend/themes/material/views' 
                     //bootstrap materail themes
-                   // '@app/views' => '@frontend/themes/bootstrapmaterial/views'
+                    //'@app/views' => '@frontend/themes/bootstrapmaterial/views'
                     //metro themes
                     '@app/views' => '@frontend/themes/metro/views'
-                ]
+                ],
+                'baseUrl'   => 'themes/metro/assets',
             ]
         ],
     /*
