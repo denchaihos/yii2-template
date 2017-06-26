@@ -34,11 +34,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
         'view' => [
             'theme' => [
                 'pathMap' => [
+                    //meterial  themes
                      // '@app/views'=>'@frontend/themes/material/views' 
-                    '@app/views' => '@frontend/themes/bootstrapmaterial/views'
+                    //bootstrap materail themes
+                   // '@app/views' => '@frontend/themes/bootstrapmaterial/views'
+                    //metro themes
+                    '@app/views' => '@frontend/themes/metro/views'
                 ]
             ]
         ],
