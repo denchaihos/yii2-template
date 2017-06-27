@@ -26,6 +26,8 @@ BootstrapMaterialAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+    <br>
+    <hr>
 
 <div class="wrap">
     <?php
@@ -33,7 +35,7 @@ BootstrapMaterialAsset::register($this);
         'brandLabel' => 'My Company',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-info navbar-fixed-top',
         ],
     ]);
     $menuItems = [
@@ -61,7 +63,7 @@ BootstrapMaterialAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

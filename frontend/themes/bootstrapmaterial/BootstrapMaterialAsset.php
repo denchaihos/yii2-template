@@ -1,15 +1,16 @@
 <?php
+
 namespace frontend\themes\bootstrapmaterial;
 
 use yii\web\AssetBundle;
 
-class BootstrapMaterialAsset extends AssetBundle{
+class BootstrapMaterialAsset extends AssetBundle {
+
     public $sourcePath = '@frontend/themes/bootstrapmaterial/assets';
-    
     public $css = [
         'css/bootstrap-material-design.min.css',
         'css/ripples.min.css',
-		'css/style.css',
+        'css/style.css',
     ];
     public $js = [
         'js/material.min.js',
@@ -17,6 +18,7 @@ class BootstrapMaterialAsset extends AssetBundle{
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        //'yii\bootstrap\BootstrapAsset',
+            //'yii\bootstrap\BootstrapAsset',
     ];
+
 }

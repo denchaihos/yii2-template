@@ -1,14 +1,17 @@
 <?php
-
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use frontend\assets\AppAsset;
+use common\widgets\Alert;
 use frontend\themes\metro\MetroAsset;
 
 /**
  * @var $this \yii\base\View
  * @var $content string
  */
-// $this->registerAssetBundle('app');
+//$this->registerAssetBundle('app');
 MetroAsset::register($this);
 $asset_path = Yii::$app->assetManager->getPublishedUrl('@frontend/themes/metro/assets');
 ?>
