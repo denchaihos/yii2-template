@@ -38,9 +38,13 @@ BootstrapMaterialAsset::register($this);
             'class' => 'navbar-info navbar-fixed-top',
         ],
     ]);
+      $report_mnu_itms[] = ['label' => 'รายงาน1', 'url' => ['report/index']];
+             $report_mnu_itms[] = ['label' => 'ประชากร', 'url' => ['pop/index']];
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'รายงานข้อมูลผลงาน',
+                    'items' => $report_mnu_itms
+                ],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {

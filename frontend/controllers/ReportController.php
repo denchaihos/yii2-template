@@ -10,7 +10,7 @@ class ReportController extends \yii\web\Controller
         return $this->render('index');
     }
     public function  actionReport1(){
-        $sql = "select hn,fname,lname from pt ";     
+        $sql = "select hn,fname,lname,male from pt ";     
         
           try {
             $rawData = \Yii::$app->db_hi->createCommand($sql)->queryAll();
