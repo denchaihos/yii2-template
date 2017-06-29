@@ -25,27 +25,49 @@ $this->registerJsFile('./js/chart_dial.js');
     <h3>Dash Board</h3>
 </div>
 <div class="row">
-    <div class="col-sm-4" style="text-align: center;">
+    <div class="col-sm-12" style="text-align: center;">
         <div id="chart"></div>
         <?php
         //create  x
-        $categ = [];
-        for ($i = 0; $i < count($rawData); $i++){
-            $categ[] = $rawData[$i]['yy'];
+        $year = [];
+        for ($i = 0; $i < count($rawData_op); $i++){
+            $year[] = $rawData_op[$i]['yy'];
         }
-        $js_categories = implode("','", $categ);
+        $js_year = implode("','", $year);
+        
+        
         //create y
-        $data = [];
-        for ($i = 0; $i < count($rawData); $i++){
-            $data[] = $rawData[$i]['cc'];
+        //op
+        $data_op = [];
+        for ($i = 0; $i < count($rawData_op); $i++){
+            $data_op[] = $rawData_op[$i]['cc'];
         }
-        $js_data =  implode(",", $data);
-        $data2 = [];
-        for ($i = 0; $i < count($rawData); $i++){
-            $data2[] = $rawData[$i]['cc2']/100;
+        $js_data_op =  implode(",", $data_op);
+        
+        //cost
+        $data_cost = [];
+        for ($i = 0; $i < count($rawData_cost); $i++){
+            $data_cost[] = $rawData_cost[$i]['cc2'];
         }
-        $js_data2 =  implode(",", $data2);
+        $js_data_cost =  implode(",", $data_cost);
+        
+        //drug
+        $data_drug = [];
+        for ($i = 0; $i < count($rawData_drug); $i++){
+            $data_drug[] = $rawData_drug[$i]['cc3'];
+        }
+        $js_data_drug =  implode(",", $data_drug);
+        
+        //lab
+        $data_lab = [];
+        for ($i = 0; $i < count($rawData_lab); $i++){
+            $data_lab[] = $rawData_lab[$i]['cc'];
+        }
+        $js_data_lab =  implode(",", $data_lab);
+        
         $this->registerJs("
+            console.log($js_data_op);
+           // $('#chart').height(600);
             $('#chart').highcharts({
                 title: {
                     text: 'ยอดผู้รับบริการผู้ป่วยนอก ย้อนหลัง 5  ปี เปรียบเที่ยบกับค่ารักษาพยาบาล'
@@ -55,22 +77,25 @@ $this->registerJsFile('./js/chart_dial.js');
                     text: ''
                 },
                 xAxis: {
+                title: {
+                        text: 'ปีงบประมาณ'
+                    },
                         categories: [
-                            '$js_categories'
+                            '$js_year'
                         ],
                         //crosshair: true
                     },
 
-                /*yAxis: {
+                yAxis: {
                     title: {
                         text: 'จำนวน'
                     },
-                     min: 10000,
-            max: 408768,
-            tickInterval: 10000,
-            lineColor: '#FF0000',
-            lineWidth: 1,
-                },*/
+                    min: 40000,
+                    max: 25000000,
+                    tickInterval: 100000,
+                    lineColor: '#FF0000',
+                    lineWidth: 1,
+                },
                 legend: {
                     layout: 'vertical',
                     align: 'right',
@@ -93,55 +118,22 @@ $this->registerJsFile('./js/chart_dial.js');
 
                 series: [{
                     name: 'ค่ารักษาพยาบาล',
-                    data: [$js_data2]
+                    data: [$js_data_cost]
                 }, {
+                    name: 'มูลค่ายา',
+                    data: [$js_data_drug]
+                },{
+                    name: 'มูลค่าชัณสูตร',
+                    data: [$js_data_lab]
+                },{
                     name: 'ยอดผู้รับบริการ',
-                    data: [$js_data]
+                    data: [$js_data_op]
                 }]
 
             });
         ");
-        ?>
-        <h4>OPD VISIT</h4>
+        ?>        
         <div id="ch1"></div>
-    </div>
-    <div class="col-sm-4" style="text-align: center;">
-<?php
-$target = 503;
-$result = 102;
-$persent = 0.00;
-if ($target > 0) {
-    $persent = $result / $target * 100;
-    $persent = number_format($persent, 2);
-}
-$base = 90;
-$this->registerJs("
-                        var obj_div=$('#ch2');
-                        gen_dial(obj_div,$base,$persent);
-                    ");
-?>
-        <h4>หญิงมีครรภ์ได้รับการตรวจสุขภาพช่องปาก<br> สำนักทันตะ</h4>
-        <div id="ch2"></div>
-
-    </div>
-
-    <div class="col-sm-4" style="text-align: center;">
-<?php
-$target = 503;
-$result = 102;
-$persent = 0.00;
-if ($target > 0) {
-    $persent = $result / $target * 100;
-    $persent = number_format($persent, 2);
-}
-$base = 90;
-$this->registerJs("
-                        var obj_div=$('#ch3');
-                        gen_dial(obj_div,$base,$persent);
-                    ");
-?>
-        <h4>หญิงตั้งค์ครรภ์ได้รับการฝากครรภ์<br>5 ครั้ง</h4>
-        <div id="ch3"></div>
     </div>
 </div>
 

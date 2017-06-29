@@ -65,25 +65,40 @@ class SiteController extends Controller {
     }
 
     public function actionIndex() {
-
-        $sql = "SELECT count(o.vn) as cc,ic.cc2,THGOVYEAR(o.vstdttm,1) as yy from ovst  o 
-
-            JOIN (SELECT sum(rcptamt) as cc2,THGOVYEAR(date,1) as yy2 from incoth WHERE year(date) BETWEEN 2013 and 2017   and an=0  GROUP BY year(date) ) ic on ic.yy2=THGOVYEAR(o.vstdttm,1)
-
-            WHERE year(o.vstdttm) BETWEEN 2013 and 2017  GROUP BY year(o.vstdttm)  ";
+        $current_year = date('Y');
+        $dateStart = ($current_year-5).'-'.'10-01';
+        $dateEnd = ($current_year).'-'.'09-30';
+//$dateStart = '2014-10-01';
+        //$dateEnd='2017-09-30';
+        $sql_op = "SELECT count(o.vn) as cc,THGOVYEAR(o.vstdttm,1) as yy from ovst  o  WHERE date(o.vstdttm) BETWEEN '$dateStart' and '$dateEnd'  GROUP BY THGOVYEAR(o.vstdttm,0)  ";
+        $sql_cost = "SELECT sum(rcptamt) as cc2 from incoth WHERE date BETWEEN '$dateStart' and '$dateEnd'   and an=0  GROUP BY THGOVYEAR(date,0) ";
+        $sql_drug = "SELECT sum(rcptamt) as cc3 from incoth WHERE date BETWEEN '$dateStart' and '$dateEnd'  and an=0 and income in('08','09','10','11') GROUP BY THGOVYEAR(date,0) ";
+        $sql_lab = "SELECT sum(rcptamt) as cc from incoth WHERE date BETWEEN '$dateStart' and '$dateEnd'   and an=0 and income in('01','03','12') GROUP BY THGOVYEAR(date,0) ";
 
         try {
-            $rawData = \Yii::$app->db_hi->createCommand($sql)->queryAll();
+            $rawData_op = \Yii::$app->db_hi->createCommand($sql_op)->queryAll();
+            $rawData_cost = \Yii::$app->db_hi->createCommand($sql_cost)->queryAll();
+            $rawData_drug = \Yii::$app->db_hi->createCommand($sql_drug)->queryAll();
+            $rawData_lab = \Yii::$app->db_hi->createCommand($sql_lab)->queryAll();
+
         } catch (\yii\db\Exception $e) {
             throw new \yii\web\ConflictHttpException('sql error');
         }
-        $dataProvider = new \yii\data\ArrayDataProvider([
-            'allModels' => $rawData,
+        /*$dataProvider_op = new \yii\data\ArrayDataProvider([
+            'allModels' => $rawData_op,
             'pagination' => false,
         ]);
+            $dataProvider_cost = new \yii\data\ArrayDataProvider([
+            'allModels' => $rawData_cost,
+            'pagination' => false,
+        ]);*/
         return $this->render('index', [
-                    'dataProvider' => $dataProvider,
-                    'rawData' => $rawData
+           // 'dataProvider_op' => $dataProvider_op,
+            //'dataProvider_cost' => $dataProvider_cost,
+            'rawData_op' => $rawData_op,
+            'rawData_cost' => $rawData_cost,
+            'rawData_drug' => $rawData_drug,
+            'rawData_lab' => $rawData_lab
         ]);
         // return $this->render('index');
     }
