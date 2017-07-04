@@ -26,7 +26,7 @@ $this->registerJsFile('./js/chart_dial.js');
 </div>
 <div class="row">
     <div class="col-sm-12" style="text-align: center;">
-        <div id="chart"></div>
+        <div id="chart">dfd</div>
         <?php
         
         $year = [];
